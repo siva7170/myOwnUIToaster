@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="myOwnUI.Toaster.css" type="text/css"/>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="myOwnUI.Toaster.js"></script>
+    <style>
+        body{
+            //background-image: url("istockphoto-1206685751-612x612.jpg");
+            //background-size: cover;
+            margin:0;
+        }
+        .toasterContainer{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+<div class="toasterContainer">
+    <div class="toasterForm">
+        <table>
+            <tr>
+                <td>
+                    <div>
+                        Header:<br/>
+                        <input type="text" id="hdr_toaster" value="Testing"/><br/><br/>
+                        Body <br/>
+                        <textarea id="bdy_txt">Please enter some text to test!</textarea><br/><br/>
+                        <button id="showToaster">Show</button>&nbsp;<button id="hideToaster">Hide</button>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        Type: <br>
+                        <select id="t_type">
+                            <option value="info" selected>Info</option>
+                            <option value="warning">Warning</option>
+                            <option value="success">Success</option>
+                            <option value="failure">Failure</option>
+                            <option value="unknown">Unknown</option>
+                        </select><br/><br/>
+                        Position: <br>
+                        <select id="t_pos">
+                            <option value="top">Top</option>
+                            <option value="top-right" selected>Top-Right</option>
+                            <option value="right">Right</option>
+                            <option value="bottom-right">Bottom-Right</option>
+                            <option value="bottom">Bottom</option>
+                            <option value="bottom-left">Bottom-Left</option>
+                            <option value="left">Left</option>
+                            <option value="top-left">Top-Left</option>
+                            <option value="center" disabled>Center</option>
+                        </select><br/><br/>
+                        Presence Timer: <input type="number" id="prsence" value="5000"/> <br/>
+                        Wait Timer(before presence): <input type="number" id="wait" value="100"/> <br/>
+                        Trigger: <input type="radio" id="a_trigg" name="trigg" value="auto" checked/> Auto | <input type="radio" id="m_trigg" name="trigg" value="manual"/> Manual<br/>
+                        Animate while show: <input type="radio" id="fade_anim_s" name="s_anim" value="fade" checked/> Fade | <input type="radio" id="hide_anim_s" name="s_anim" value="hide"/> Hide<br/>
+                        Animate while hide: <input type="radio" id="fade_anim_h" name="h_anim" value="fade" checked/> Fade | <input type="radio" id="hide_anim_h" name="h_anim" value="hide"/> Hide<br/>
+                        Timer freeze on hover:  <input type="checkbox" id="tfreeze" checked/><br/>
+                        Auto Close:  <input type="checkbox" id="autoclose" checked/><br/>
+                        Close On Click:  <input type="checkbox" id="closeclick"/><br/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+    <script>
+        $(document).ready(function(e){
+            let myOwnUIT=undefined;
+            $("#showToaster").on("click",function (){
+                let hdr_text=$("#hdr_toaster").val();
+                let bdy_text=$("#bdy_txt").val();
+                let t_type=$("#t_type").val();
+                let t_pos=$("#t_pos").val();
+                let prsence=$("#prsence").val();
+                let wait=$("#wait").val();
+                let trigg=$("input[name='trigg']:checked").val();
+                let s_anim=$("input[name='s_anim']:checked").val();
+                let h_anim=$("input[name='h_anim']:checked").val();
+                let tfreeze=$("#tfreeze").prop("checked");
+                let autoclose=$("#autoclose").prop("checked");
+                let closeClick=$("#closeclick").prop("checked");
+
+                myOwnUIT=$.myOwnUIToaster({
+                    header:hdr_text,
+                    body:bdy_text,
+                    type:t_type,
+                    position:t_pos,
+                    presenceTimer:prsence,
+                    beforeWaitTimer: wait,
+                    trigger:trigg,
+                    animateWhenShowAs: s_anim,
+                    animateWhenHideAs: h_anim,
+                    hoverOnTimeFreeze:tfreeze,
+                    autoClose: autoclose,
+                    clickOnClose: closeClick
+                });
+
+                if(trigg==='manual'){
+                    myOwnUIT.show();
+                }
+            });
+
+            $("#hideToaster").on("click",function (){
+                if(myOwnUIT!==undefined){
+                    myOwnUIT.close();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
