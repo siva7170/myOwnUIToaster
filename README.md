@@ -27,10 +27,10 @@ Place "myOwnUI.Toaster.css" and latest jQuery above the end head tag and place "
   <head>
     <link rel="stylesheet" href="css/myOwnUI.Toaster.css" type="text/css"/>
     <script src="script/jquery-3.6.0.min.js" type="text/javascript"></script> <!-- Please update with latest jQuery -->
+    <script src="script/myOwnUI.Toaster.js" type="text/javascript"></script>
   </head>
   <body>
     <!-- Your page content -->
-    <script src="script/myOwnUI.Toaster.js" type="text/javascript"></script>
   </body>
 </html>
 ```
